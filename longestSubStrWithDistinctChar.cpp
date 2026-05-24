@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+using namespace std;
 
 //*  NAIVE APPROACH : 
 class Solution{
@@ -48,3 +49,30 @@ class Solution2{
         return maxLen;
     }
 };
+
+// * Practice Day 1 :
+ int longestNonRepeatingSubstring(string& s){
+        int l = 0, r = l;
+        int n = s.size();
+        int maxLen = 0;
+        int hash[26];
+        for(int i = 0; i < 26; i++) 
+            hash[i] = -1;
+
+        while(r < n){
+            // * Shrink
+            if(hash[s[r] - 'a'] != -1 && hash[s[r] - 'a'] >= l){
+                while(l < n){
+                    if(s[l] == s[r]){
+                        l++;
+                        break;
+                    }
+                    l++;
+                }
+            } 
+            hash[s[r] - 'a'] = r;
+            if(maxLen < r - l + 1) maxLen = r - l + 1;
+            r++;
+        }
+        return maxLen;
+    }
