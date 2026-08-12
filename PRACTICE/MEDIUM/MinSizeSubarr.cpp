@@ -19,3 +19,22 @@ int minSubArrayLen(int target, vector<int>& nums) {
     }
     return (minLen == INT_MAX ? 0 : minLen);
 }
+
+// * Best Practice approach : MINIMAL CODE
+// * Multiple cases, taken care of just by changing the 
+// * placement of the minimal length subarray
+int minSubArrayLen(int target, vector<int>& nums) {
+    int minLen = INT_MAX;
+    int i = 0, j = 0, n = nums.size();
+    long long sum = 0;
+    while(j < n){
+        sum += nums[j];
+        while(sum >= target){
+            minLen = min(minLen, j - i + 1);
+            sum -= nums[i];
+            i++;
+        }
+        j++;
+    }
+    return (minLen == INT_MAX ? 0 : minLen);
+}
